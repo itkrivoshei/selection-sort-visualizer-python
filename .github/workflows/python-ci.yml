@@ -5,13 +5,20 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: python-ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate:
+    name: Validate Python project
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Checkout repository
@@ -29,10 +36,10 @@ jobs:
           python -m pip install -e ".[app,dev]"
 
       - name: Lint
-        run: ruff check .
+        run: python -m ruff check .
 
       - name: Format check
-        run: ruff format --check .
+        run: python -m ruff format --check .
 
       - name: Test
-        run: pytest -q
+        run: python -m pytest -q
