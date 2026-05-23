@@ -1,50 +1,99 @@
-# 🔍 SelectionSortVisualizer
+# Selection Sort Visualizer
 
-<p align="center">
-  <img src="https://github.com/itkrivoshei/SelectionSortAndVisualizer/blob/main/SelectionSortAndVisualizer.gif" height="600">
-</p>
+Interactive Python app for exploring how the selection sort algorithm works step by step.
 
+The project includes a small algorithm core, a Streamlit visual demo, a CLI entry point, and automated checks with GitHub Actions.
 
-A fun and interactive way to learn Selection Sort with visual tests and an engaging visualizer, all set up for seamless use on Replit.
+## Demo
 
-## 🌐 Live Demo
+The Streamlit app entry point is:
 
-Experience the live demo on Replit: [Selection Sort Visualizer](https://replit.com/@itkrivoshei/Selection-Sort)
+```text
+streamlit_app.py
+```
 
-## 🎨 Features
+Deploy it with Streamlit Community Cloud by selecting this repository, the `main` branch, and `streamlit_app.py` as the main file.
 
-- **Visual Representation**: Watch the Selection Sort algorithm in action.
-- **Integrated Tests**: Run visual tests to see the sorting algorithm’s correctness.
-- **Dracula Theme**: Enjoy a visually appealing color palette.
-- **Fullscreen Mode**: Optimize your viewing experience with fullscreen visualization.
+## Features
 
-## 📁 Files Overview
+- Step-by-step selection sort visualization
+- Custom number input from the sidebar
+- Interactive slider for moving through algorithm states
+- Plotly chart with color-coded sorting states
+- Pure Python algorithm implementation
+- Pytest test coverage for the sorting logic
+- Ruff linting and formatting checks in CI
 
-### `main.py`
+## Project Structure
 
-The main driver file. It initializes the GUI and provides options to test or visualize the selection sort algorithm using `matplotlib`.
+```text
+.
+├── .github/workflows/python-ci.yml
+├── main.py
+├── selection_sort.py
+├── streamlit_app.py
+├── test_selection_sort.py
+├── visual_selection_sort.py
+├── requirements.txt
+├── runtime.txt
+├── pyproject.toml
+└── README.md
+```
 
-### `selection_sort.py`
+## Run Locally
 
-Contains the core logic of the selection sort algorithm.
+Create and activate a virtual environment:
 
-### `test_selection_sort.py`
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
 
-Includes tests for the selection sort algorithm and visualizes the test results using `matplotlib`.
+Install dependencies:
 
-### `visual_selection_sort.py`
+```bash
+python -m pip install --upgrade pip
+python -m pip install -e ".[app,dev]"
+```
 
-Brings the selection sort algorithm to life with a dynamic visualization using `tkinter`.
+Run the Streamlit demo:
 
-## 🚀 How to Run
+```bash
+streamlit run streamlit_app.py
+```
 
-1. Visit the [Replit link](https://replit.com/@itkrivoshei/Selection-Sort).
-2. Click the `Run` button to start the visualizer.
+Run the CLI example:
 
-## 🤝 Contributing
+```bash
+python main.py 64 25 12 22 11
+```
 
-We welcome all contributions! Fork the project, create a new branch, and submit a pull request to help us improve.
+## Quality Checks
 
-## 📜 License
+Run tests:
 
-This project is open-source and available under the MIT License. Feel free to use and modify the code as needed.
+```bash
+pytest -q
+```
+
+Run linting and formatting checks:
+
+```bash
+ruff check .
+ruff format --check .
+```
+
+## Algorithm Notes
+
+Selection sort repeatedly scans the unsorted section of a list, selects the smallest value, and swaps it into the next sorted position.
+
+Complexity:
+
+- Time: `O(n²)`
+- Space: `O(1)` for the in-place algorithm idea
+
+This makes it useful for learning algorithm mechanics, but not suitable as a production sorting strategy for large datasets.
+
+## License
+
+This project is licensed under the MIT License.
