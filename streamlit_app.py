@@ -154,7 +154,7 @@ def main() -> None:
         )
         step = steps[selected_step]
         st.caption(step_progress_label(step, selected_step, len(steps)))
-        st.plotly_chart(build_chart(step), use_container_width=True)
+        st.plotly_chart(build_chart(step), width="stretch")
         st.info(step_summary(step, selected_step))
 
     st.subheader("Legend")
