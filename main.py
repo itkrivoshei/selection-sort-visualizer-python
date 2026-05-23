@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import argparse
 
-from selection_sort import selection_sort
+from selection_sort_visualizer import selection_sort
 
 
 def parse_args() -> argparse.Namespace:
