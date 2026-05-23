@@ -1,26 +1,82 @@
-def selection_sort(numbers):
-    """Sort a list of numbers using the selection sort algorithm."""
-    
-    # Determine the number of elements in the list
-    length = len(numbers)
+from __future__ import annotations
 
-    # Iterate over each element in the list
-    for current_index in range(length):
-        # Start by assuming the current element is the smallest
+from collections.abc import Iterable, Iterator
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class SortStep:
+    """Single step emitted by the selection sort visualizer."""
+
+    values: tuple[int, ...]
+    current_index: int | None = None
+    comparison_index: int | None = None
+    smallest_index: int | None = None
+    swapped: bool = False
+    sorted_until: int = 0
+
+
+def selection_sort(numbers: Iterable[int]) -> list[int]:
+    """Return a sorted copy of *numbers* using the selection sort algorithm."""
+
+    values = list(numbers)
+
+    for current_index in range(len(values)):
         smallest_index = current_index
 
-        # Iterate over the unsorted portion of the list
-        for next_index in range(current_index + 1, length):
-            # If a smaller element is found, update the smallest_index
-            if numbers[next_index] < numbers[smallest_index]:
-                smallest_index = next_index
+        for comparison_index in range(current_index + 1, len(values)):
+            if values[comparison_index] < values[smallest_index]:
+                smallest_index = comparison_index
 
-        # Swap the current element with the smallest found element
-        # (if they are different)
         if smallest_index != current_index:
-            numbers[current_index], numbers[smallest_index] = (
-                numbers[smallest_index], numbers[current_index]
+            values[current_index], values[smallest_index] = (
+                values[smallest_index],
+                values[current_index],
             )
 
-    # Return the sorted list
-    return numbers
+    return values
+
+
+def iter_selection_sort(numbers: Iterable[int]) -> Iterator[SortStep]:
+    """Yield selection sort states for interactive visualization."""
+
+    values = list(numbers)
+
+    yield SortStep(values=tuple(values))
+
+    for current_index in range(len(values)):
+        smallest_index = current_index
+
+        yield SortStep(
+            values=tuple(values),
+            current_index=current_index,
+            smallest_index=smallest_index,
+            sorted_until=current_index,
+        )
+
+        for comparison_index in range(current_index + 1, len(values)):
+            if values[comparison_index] < values[smallest_index]:
+                smallest_index = comparison_index
+
+            yield SortStep(
+                values=tuple(values),
+                current_index=current_index,
+                comparison_index=comparison_index,
+                smallest_index=smallest_index,
+                sorted_until=current_index,
+            )
+
+        swapped = smallest_index != current_index
+        if swapped:
+            values[current_index], values[smallest_index] = (
+                values[smallest_index],
+                values[current_index],
+            )
+
+        yield SortStep(
+            values=tuple(values),
+            current_index=current_index,
+            smallest_index=smallest_index,
+            swapped=swapped,
+            sorted_until=current_index + 1,
+        )
