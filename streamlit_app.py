@@ -5,14 +5,14 @@ import re
 import plotly.graph_objects as go
 import streamlit as st
 
-from selection_sort import SortStep, iter_selection_sort, selection_sort
+from selection_sort_visualizer import SortStep, iter_selection_sort, selection_sort
 
 DEFAULT_VALUES = "64, 25, 12, 22, 11, 90, 34"
 MAX_ITEMS = 25
 
 
 def parse_numbers(raw_value: str) -> list[int]:
-    """Parse comma, space, or newline separated integers from a text input."""
+    """Parse comma, space, or newline separated integers from text input."""
 
     tokens = [token for token in re.split(r"[\s,]+", raw_value.strip()) if token]
     if not tokens:
