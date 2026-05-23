@@ -1,37 +1,33 @@
 from __future__ import annotations
 
-import re
-
 import plotly.graph_objects as go
 import streamlit as st
 
-from selection_sort_visualizer import SortStep, iter_selection_sort, selection_sort
+from selection_sort_visualizer import (
+    DEFAULT_VALUES,
+    MAX_ITEMS,
+    SortStep,
+    iter_selection_sort,
+    parse_numbers,
+    selection_sort,
+)
 
-DEFAULT_VALUES = "64, 25, 12, 22, 11, 90, 34"
-MAX_ITEMS = 25
-
-
-def parse_numbers(raw_value: str) -> list[int]:
-    """Parse comma, space, or newline separated integers from text input."""
-
-    tokens = [token for token in re.split(r"[\s,]+", raw_value.strip()) if token]
-    if not tokens:
-        msg = "Enter at least one number."
-        raise ValueError(msg)
-
-    values = [int(token) for token in tokens]
-    if len(values) > MAX_ITEMS:
-        msg = f"Use {MAX_ITEMS} numbers or fewer for a readable visualization."
-        raise ValueError(msg)
-
-    return values
+BAR_COLORS = {
+    "sorted": "#22c55e",
+    "current": "#f59e0b",
+    "comparison": "#38bdf8",
+    "smallest": "#ef4444",
+    "default": "#64748b",
+}
 
 
-def step_summary(step: SortStep, step_number: int, total_steps: int) -> str:
+def step_summary(step: SortStep, step_number: int) -> str:
     """Create a compact explanation for the current algorithm state."""
 
     if step_number == 0:
         return "Initial input before sorting starts."
+    if step.is_complete:
+        return "Sorting complete."
     if step.swapped:
         return "Swap completed: the smallest value found in this pass moved into place."
     if step.comparison_index is not None:
@@ -39,29 +35,33 @@ def step_summary(step: SortStep, step_number: int, total_steps: int) -> str:
             f"Comparing index {step.comparison_index} with current smallest "
             f"index {step.smallest_index}."
         )
-    if step_number == total_steps - 1:
-        return "Sorting complete."
     return f"Starting pass at index {step.current_index}."
+
+
+def marker_colors(step: SortStep) -> list[str]:
+    """Return bar colors for the current visualization step."""
+
+    colors = []
+
+    for index, _ in enumerate(step.values):
+        if index < step.sorted_until:
+            colors.append(BAR_COLORS["sorted"])
+        elif index == step.current_index:
+            colors.append(BAR_COLORS["current"])
+        elif index == step.comparison_index:
+            colors.append(BAR_COLORS["comparison"])
+        elif index == step.smallest_index:
+            colors.append(BAR_COLORS["smallest"])
+        else:
+            colors.append(BAR_COLORS["default"])
+
+    return colors
 
 
 def build_chart(step: SortStep) -> go.Figure:
     """Build a Plotly bar chart for the selected sorting step."""
 
     values = list(step.values)
-    marker_colors = []
-
-    for index, _ in enumerate(values):
-        if index < step.sorted_until:
-            marker_colors.append("#22c55e")
-        elif index == step.current_index:
-            marker_colors.append("#f59e0b")
-        elif index == step.comparison_index:
-            marker_colors.append("#38bdf8")
-        elif index == step.smallest_index:
-            marker_colors.append("#ef4444")
-        else:
-            marker_colors.append("#64748b")
-
     figure = go.Figure(
         data=[
             go.Bar(
@@ -69,7 +69,7 @@ def build_chart(step: SortStep) -> go.Figure:
                 y=values,
                 text=values,
                 textposition="outside",
-                marker_color=marker_colors,
+                marker_color=marker_colors(step),
                 hovertemplate="index=%{x}<br>value=%{y}<extra></extra>",
             )
         ]
@@ -86,6 +86,23 @@ def build_chart(step: SortStep) -> go.Figure:
     return figure
 
 
+def render_sidebar() -> str:
+    """Render sidebar controls and return raw input."""
+
+    with st.sidebar:
+        st.header("Input")
+        raw_numbers = st.text_area(
+            "Numbers",
+            value=DEFAULT_VALUES,
+            help="Use comma, space, or newline separated integers.",
+        )
+        st.caption(f"Limit: {MAX_ITEMS} values for readable charts.")
+        st.divider()
+        st.caption("Selection sort runs in O(n²) time and O(1) auxiliary space.")
+
+    return raw_numbers
+
+
 def main() -> None:
     st.set_page_config(
         page_title="Selection Sort Visualizer",
@@ -99,14 +116,7 @@ def main() -> None:
         "and swaps values step by step."
     )
 
-    with st.sidebar:
-        st.header("Input")
-        raw_numbers = st.text_area(
-            "Numbers",
-            value=DEFAULT_VALUES,
-            help="Use comma, space, or newline separated integers.",
-        )
-        st.caption(f"Limit: {MAX_ITEMS} values for readable charts.")
+    raw_numbers = render_sidebar()
 
     try:
         numbers = parse_numbers(raw_numbers)
@@ -134,7 +144,7 @@ def main() -> None:
         )
         step = steps[selected_step]
         st.plotly_chart(build_chart(step), use_container_width=True)
-        st.info(step_summary(step, selected_step, len(steps)))
+        st.info(step_summary(step, selected_step))
 
     st.subheader("Legend")
     st.markdown(
