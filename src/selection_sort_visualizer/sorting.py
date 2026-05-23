@@ -4,9 +4,9 @@ from collections.abc import Iterable, Iterator
 from dataclasses import dataclass
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class SortStep:
-    """Single step emitted by the selection sort visualizer."""
+    """Single immutable state emitted by the selection sort visualizer."""
 
     values: tuple[int, ...]
     current_index: int | None = None
@@ -15,9 +15,15 @@ class SortStep:
     swapped: bool = False
     sorted_until: int = 0
 
+    @property
+    def is_complete(self) -> bool:
+        """Return True when the emitted state represents a fully sorted list."""
+
+        return self.sorted_until >= len(self.values)
+
 
 def selection_sort(numbers: Iterable[int]) -> list[int]:
-    """Return a sorted copy of *numbers* using selection sort."""
+    """Return a sorted copy of *numbers* using the selection sort algorithm."""
 
     values = list(numbers)
 
