@@ -1,39 +1,55 @@
 # Selection Sort Visualizer
 
-Interactive Python app for exploring how the selection sort algorithm works step by step.
+Interactive Python app for exploring how selection sort works step by step.
 
-The project includes a small algorithm core, a Streamlit visual demo, a CLI entry point, and automated checks with GitHub Actions.
+The project separates the algorithm logic from the Streamlit interface and includes automated checks for linting, formatting, and tests.
 
 ## Demo
 
-The Streamlit app entry point is:
+Streamlit entry point:
 
 ```text
 streamlit_app.py
 ```
 
-Deploy it with Streamlit Community Cloud by selecting this repository, the `main` branch, and `streamlit_app.py` as the main file.
+For Streamlit Community Cloud, use:
+
+```text
+Repository: itkrivoshei/selection-sort-visualizer-python
+Branch: main
+Main file path: streamlit_app.py
+Python version: runtime.txt
+```
 
 ## Features
 
 - Step-by-step selection sort visualization
-- Custom number input from the sidebar
-- Interactive slider for moving through algorithm states
-- Plotly chart with color-coded sorting states
-- Pure Python algorithm implementation
-- Pytest test coverage for the sorting logic
-- Ruff linting and formatting checks in CI
+- Custom number input
+- Interactive algorithm step slider
+- Color-coded Plotly chart
+- Reusable Python sorting module
+- CLI example
+- Pytest tests
+- Ruff linting and formatting
+- GitHub Actions validation
 
 ## Project Structure
 
 ```text
 .
-├── .github/workflows/python-ci.yml
+├── .github/
+│   └── workflows/
+│       └── python-ci.yml
+├── src/
+│   └── selection_sort_visualizer/
+│       ├── __init__.py
+│       ├── parser.py
+│       └── sorting.py
+├── tests/
+│   ├── test_sorting.py
+│   └── test_streamlit_app.py
 ├── main.py
-├── selection_sort.py
 ├── streamlit_app.py
-├── test_selection_sort.py
-├── visual_selection_sort.py
 ├── requirements.txt
 ├── runtime.txt
 ├── pyproject.toml
@@ -56,7 +72,7 @@ python -m pip install --upgrade pip
 python -m pip install -e ".[app,dev]"
 ```
 
-Run the Streamlit demo:
+Run the Streamlit app:
 
 ```bash
 streamlit run streamlit_app.py
@@ -73,14 +89,14 @@ python main.py 64 25 12 22 11
 Run tests:
 
 ```bash
-pytest -q
+python -m pytest -q
 ```
 
 Run linting and formatting checks:
 
 ```bash
-ruff check .
-ruff format --check .
+python -m ruff check .
+python -m ruff format --check .
 ```
 
 ## Algorithm Notes
@@ -91,8 +107,6 @@ Complexity:
 
 - Time: `O(n²)`
 - Space: `O(1)` for the in-place algorithm idea
-
-This makes it useful for learning algorithm mechanics, but not suitable as a production sorting strategy for large datasets.
 
 ## License
 
