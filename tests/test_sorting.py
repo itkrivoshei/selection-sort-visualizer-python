@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from selection_sort_visualizer import iter_selection_sort, selection_sort
+from selection_sort_visualizer import iter_selection_sort, parse_numbers, selection_sort
 
 
 @pytest.mark.parametrize(
@@ -33,3 +33,30 @@ def test_iter_selection_sort_finishes_with_sorted_values() -> None:
     assert steps
     assert list(steps[-1].values) == [1, 2, 3, 4]
     assert steps[-1].sorted_until == 4
+    assert steps[-1].is_complete
+
+
+@pytest.mark.parametrize(
+    ("raw_value", "expected"),
+    [
+        ("1,2,3", [1, 2, 3]),
+        ("1 2 3", [1, 2, 3]),
+        ("1\n2\n3", [1, 2, 3]),
+        ("-3, 0, 9", [-3, 0, 9]),
+    ],
+)
+def test_parse_numbers_supports_common_separators(raw_value: str, expected: list[int]) -> None:
+    assert parse_numbers(raw_value) == expected
+
+
+@pytest.mark.parametrize("raw_value", ["", "abc", "1, two, 3"])
+def test_parse_numbers_rejects_invalid_input(raw_value: str) -> None:
+    with pytest.raises(ValueError):
+        parse_numbers(raw_value)
+
+
+def test_parse_numbers_rejects_too_many_items() -> None:
+    raw_value = ",".join(str(number) for number in range(26))
+
+    with pytest.raises(ValueError):
+        parse_numbers(raw_value)
