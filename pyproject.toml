@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 authors = [{ name = "Nikita Krivoshei" }]
 license = "MIT"
+dependencies = []
 
 [project.optional-dependencies]
 app = [
@@ -25,7 +26,7 @@ build-backend = "setuptools.build_meta"
 where = ["src"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["tests"]npythonpath = ["."]
 
 [tool.ruff]
 line-length = 100
