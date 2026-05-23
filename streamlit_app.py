@@ -35,7 +35,17 @@ def step_summary(step: SortStep, step_number: int) -> str:
             f"Comparing index {step.comparison_index} with current smallest "
             f"index {step.smallest_index}."
         )
+    if step.current_index is not None and step.sorted_until > step.current_index:
+        return "No swap needed: the current value is already in the sorted position."
     return f"Starting pass at index {step.current_index}."
+
+
+def step_progress_label(step: SortStep, step_number: int, total_steps: int) -> str:
+    """Return a compact progress label for the selected sorting step."""
+
+    max_step = max(total_steps - 1, 0)
+    sorted_count = min(step.sorted_until, len(step.values))
+    return f"Step {step_number} of {max_step} · sorted prefix: {sorted_count}/{len(step.values)}"
 
 
 def marker_colors(step: SortStep) -> list[str]:
@@ -143,6 +153,7 @@ def main() -> None:
             value=0,
         )
         step = steps[selected_step]
+        st.caption(step_progress_label(step, selected_step, len(steps)))
         st.plotly_chart(build_chart(step), use_container_width=True)
         st.info(step_summary(step, selected_step))
 
