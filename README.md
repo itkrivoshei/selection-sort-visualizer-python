@@ -3,32 +3,12 @@
 [![Python CI](https://img.shields.io/github/actions/workflow/status/itkrivoshei/selection-sort-visualizer-python/python-ci.yml?branch=main&style=flat-square)](https://github.com/itkrivoshei/selection-sort-visualizer-python/actions/workflows/python-ci.yml)
 [![License: MIT](https://img.shields.io/github/license/itkrivoshei/selection-sort-visualizer-python?style=flat-square)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue?style=flat-square&logo=python&logoColor=white)](pyproject.toml)
-[![Streamlit demo](https://img.shields.io/badge/demo-Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](https://selection-sort-visualizer-python.streamlit.app/)
 
 Interactive Python visualizer for the selection sort algorithm.
 
+Live demo: [selection-sort-visualizer-python.streamlit.app](https://selection-sort-visualizer-python.streamlit.app/)
+
 The project demonstrates a small but complete Python application: reusable algorithm logic, input parsing, Streamlit UI, Plotly visualization, automated tests, linting, formatting checks, Dependabot updates, Streamlit Community Cloud deployment, and GitHub Actions CI.
-
-## Live Demo
-
-Open the Streamlit app:
-
-https://selection-sort-visualizer-python.streamlit.app/
-
-## Quick Links
-
-| Resource | Link |
-|---|---|
-| Live demo | [Streamlit app](https://selection-sort-visualizer-python.streamlit.app/) |
-| Streamlit app entry point | [`streamlit_app.py`](streamlit_app.py) |
-| CLI entry point | [`main.py`](main.py) |
-| Sorting logic | [`src/selection_sort_visualizer/sorting.py`](src/selection_sort_visualizer/sorting.py) |
-| Input parser | [`src/selection_sort_visualizer/parser.py`](src/selection_sort_visualizer/parser.py) |
-| Algorithm tests | [`tests/test_sorting.py`](tests/test_sorting.py) |
-| Streamlit tests | [`tests/test_streamlit_app.py`](tests/test_streamlit_app.py) |
-| CI workflow | [`.github/workflows/python-ci.yml`](.github/workflows/python-ci.yml) |
-| Dependabot config | [`.github/dependabot.yml`](.github/dependabot.yml) |
-| License | [`LICENSE`](LICENSE) |
 
 ## Features
 
@@ -169,11 +149,21 @@ Dependabot checks Python and GitHub Actions dependencies weekly. Dependabot pull
 | [`src/selection_sort_visualizer/parser.py`](src/selection_sort_visualizer/parser.py) | Input parsing and validation |
 | [`tests/test_sorting.py`](tests/test_sorting.py) | Unit tests for sorting behavior |
 | [`tests/test_streamlit_app.py`](tests/test_streamlit_app.py) | Tests for Streamlit-facing helpers |
+| [`requirements.txt`](requirements.txt) | Streamlit Cloud dependency entry point |
+| [`runtime.txt`](runtime.txt) | Python runtime version for Streamlit Cloud |
+| [`pyproject.toml`](pyproject.toml) | Project metadata, dependency ranges, Ruff, and Pytest config |
 | [`.github/workflows/python-ci.yml`](.github/workflows/python-ci.yml) | CI workflow for linting, formatting checks, and tests |
 | [`.github/workflows/dependabot-auto-merge.yml`](.github/workflows/dependabot-auto-merge.yml) | Dependabot auto-merge after green CI |
 | [`.github/dependabot.yml`](.github/dependabot.yml) | Weekly dependency update checks |
+| [`LICENSE`](LICENSE) | MIT license |
 
 ## Deployment
+
+The app is deployed on Streamlit Community Cloud:
+
+```text
+https://selection-sort-visualizer-python.streamlit.app/
+```
 
 Streamlit Community Cloud uses:
 
