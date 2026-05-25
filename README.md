@@ -7,43 +7,68 @@
 
 Interactive Python visualizer for the selection sort algorithm.
 
-## Stack
-
-- Python 3.10+
-- Streamlit
-- Plotly
-- Pytest
-- Ruff
-- GitHub Actions
-
-## Scope
-
-- Step-by-step selection sort visualization
-- Custom integer input
-- Interactive step slider
-- Color-coded algorithm states
-- Reusable sorting module
-- Small CLI example
+The project demonstrates a small but complete Python application: reusable algorithm logic, input parsing, Streamlit UI, Plotly visualization, automated tests, linting, formatting checks, and GitHub Actions CI.
 
 ## Live Demo
 
-The Streamlit app is deployed here:
+Streamlit app:
 
 https://selection-sort-visualizer-python.streamlit.app/
 
+## Features
+
+- Step-by-step selection sort visualization
+- Custom integer input using commas, spaces, or new lines
+- Interactive step slider
+- Color-coded algorithm states
+- Compact explanation for each sorting step
+- Reusable sorting module separated from the UI
+- CLI example for running the algorithm from the terminal
+- Automated CI with Ruff and Pytest
+
+## Tech Stack
+
+| Area | Tools |
+|---|---|
+| Language | Python 3.10+ |
+| UI | Streamlit |
+| Visualization | Plotly |
+| Testing | Pytest |
+| Linting / formatting | Ruff |
+| CI | GitHub Actions |
+| Deployment | Streamlit Community Cloud |
+
+## Algorithm Scope
+
+Selection sort repeatedly scans the unsorted part of the list, finds the smallest value, and swaps it into the next sorted position.
+
+| Property | Value |
+|---|---|
+| Time complexity | `O(n²)` |
+| Auxiliary space | `O(1)` |
+| Stable by default | No |
+| Practical use | Educational visualization |
+
 ## Install
+
+Create and activate a virtual environment:
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -e ".[app,dev]"
 ```
 
-On Windows, activate the virtual environment with:
+On Windows:
 
 ```powershell
 .venv\Scripts\activate
+```
+
+Install the app and development dependencies:
+
+```bash
+python -m pip install --upgrade pip
+python -m pip install -e ".[app,dev]"
 ```
 
 ## Run
@@ -64,6 +89,8 @@ No build step is required.
 
 ## Verify
 
+Run the same checks used by CI:
+
 ```bash
 python -m ruff check .
 python -m ruff format --check .
@@ -74,11 +101,15 @@ python -m pytest -q
 
 ```text
 .
-├── .github/workflows/python-ci.yml
-├── src/selection_sort_visualizer/
-│   ├── __init__.py
-│   ├── parser.py
-│   └── sorting.py
+├── .github/
+│   ├── dependabot.yml
+│   └── workflows/
+│       └── python-ci.yml
+├── src/
+│   └── selection_sort_visualizer/
+│       ├── __init__.py
+│       ├── parser.py
+│       └── sorting.py
 ├── tests/
 │   ├── test_sorting.py
 │   └── test_streamlit_app.py
@@ -90,6 +121,18 @@ python -m pytest -q
 └── README.md
 ```
 
+## Key Files
+
+| File | Purpose |
+|---|---|
+| `streamlit_app.py` | Streamlit interface and Plotly chart rendering |
+| `main.py` | Small CLI entry point |
+| `src/selection_sort_visualizer/sorting.py` | Selection sort implementation and step generator |
+| `src/selection_sort_visualizer/parser.py` | Input parsing and validation |
+| `tests/` | Unit tests for algorithm and UI helpers |
+| `.github/workflows/python-ci.yml` | CI workflow for linting, formatting checks, and tests |
+| `.github/dependabot.yml` | Weekly dependency update checks |
+
 ## Deployment
 
 Streamlit Community Cloud uses:
@@ -98,6 +141,12 @@ Streamlit Community Cloud uses:
 Main file path: streamlit_app.py
 Python version: runtime.txt
 Dependencies: requirements.txt
+```
+
+`requirements.txt` installs the package with app dependencies:
+
+```text
+-e .[app]
 ```
 
 ## License
