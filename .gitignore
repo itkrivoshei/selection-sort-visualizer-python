@@ -30,3 +30,6 @@ build/
 # OS files and logs
 .DS_Store
 *.log
+
+# Replit/local Python environment
+.pythonlibs/
