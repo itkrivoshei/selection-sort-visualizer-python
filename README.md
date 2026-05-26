@@ -6,8 +6,6 @@
 [![Plotly](https://img.shields.io/badge/Plotly-charts-3f4f75?style=flat-square&logo=plotly&logoColor=white)](pyproject.toml)
 [![License: MIT](https://img.shields.io/github/license/itkrivoshei/selection-sort-visualizer-python?style=flat-square)](LICENSE)
 
-## [Open Streamlit App ->](https://selection-sort-visualizer-python.streamlit.app/)
-
 Interactive Streamlit visualizer that turns selection sort into a step-by-step Plotly chart.
 
 ## Algorithm Lens
@@ -65,10 +63,6 @@ python -m pytest -q
 | `streamlit_app.py` | Streamlit UI and Plotly chart rendering |
 | `main.py` | CLI wrapper |
 | `tests/` | Sorting, parser, and app-helper tests |
-
-## Live App
-
-https://selection-sort-visualizer-python.streamlit.app/
 
 ## License
 
