@@ -1,12 +1,17 @@
+<div align="center">
+
 # Selection Sort Visualizer
 
-[![Live app](https://img.shields.io/badge/live-Streamlit-ff4b4b?style=flat-square&logo=streamlit&logoColor=white)](https://selection-sort-visualizer-python.streamlit.app/)
-[![Python CI](https://img.shields.io/github/actions/workflow/status/itkrivoshei/selection-sort-visualizer-python/python-ci.yml?branch=main&style=flat-square&label=python%20ci&logo=githubactions&logoColor=white)](https://github.com/itkrivoshei/selection-sort-visualizer-python/actions/workflows/python-ci.yml)
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776ab?style=flat-square&logo=python&logoColor=white)](pyproject.toml)
-[![Plotly](https://img.shields.io/badge/Plotly-charts-3f4f75?style=flat-square&logo=plotly&logoColor=white)](pyproject.toml)
-[![License: MIT](https://img.shields.io/github/license/itkrivoshei/selection-sort-visualizer-python?style=flat-square)](LICENSE)
-
 Interactive Streamlit visualizer that turns selection sort into a step-by-step Plotly chart.
+
+[![Live app](https://img.shields.io/badge/live-Streamlit-ff4b4b?style=for-the-badge&logo=streamlit&logoColor=white)](https://selection-sort-visualizer-python.streamlit.app/)
+[![Python CI](https://img.shields.io/github/actions/workflow/status/itkrivoshei/selection-sort-visualizer-python/python-ci.yml?branch=main&style=for-the-badge&label=ci&logo=githubactions&logoColor=white)](https://github.com/itkrivoshei/selection-sort-visualizer-python/actions/workflows/python-ci.yml)
+[![CodeQL](https://img.shields.io/github/actions/workflow/status/itkrivoshei/selection-sort-visualizer-python/codeql.yml?branch=main&style=for-the-badge&label=codeql&logo=github&logoColor=white)](https://github.com/itkrivoshei/selection-sort-visualizer-python/actions/workflows/codeql.yml)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776ab?style=for-the-badge&logo=python&logoColor=white)](pyproject.toml)
+[![Plotly](https://img.shields.io/badge/Plotly-charts-3f4f75?style=for-the-badge&logo=plotly&logoColor=white)](pyproject.toml)
+[![License](https://img.shields.io/github/license/itkrivoshei/selection-sort-visualizer-python?style=for-the-badge)](LICENSE)
+
+</div>
 
 ## Algorithm Lens
 
